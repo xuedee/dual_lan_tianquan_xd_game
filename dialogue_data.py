@@ -1,25 +1,25 @@
 # dialogue_data.py
-# 这个文件负责存储对话内容，支持中英双语
+# all conversation, dual languages
 import re
 
 DIALOGUES = {
-    # ---最终指认菜单---
+    # ---Final accuse menu---
     "accuse_prompt": {
         "zh": "你最终指认的凶手是谁？",
         "en": "Who do you finally accuse as the culprit?"
     },
     "accuse_cancel": {
-        "zh": "0. 返回主菜单",#不想现在猜，回到主菜单再溜达溜达。
+        "zh": "0. 返回主菜单", #不想现在猜，回到主菜单再溜达溜达。
         "en": "0. Return to Main Menu"
     },
 
-    # --- 结局相关文本 ---
+    # --- Ending related ---
     "ending_title": {
         "zh": "结局揭晓",
         "en": "Ending Revealed"
     },
 
-    # 结局 1: 证据不足，凶手逍遥法外 (未收集齐关键物证)
+    # Ending 1: insufficient evidence, fail
     "ending_failure_insufficient_evidence_msg": {
         "zh": "\n很遗憾，由于证据不足，仅凭你脑子里的怀疑，无法真正锁定凶手，凶手逍遥法外，天音阁的声望也被你影响。",
         "en": "\nRegrettably, due to insufficient evidence, your suspicions alone cannot truly pinpoint the culprit. The murderer remains at large, and Qingyin Pavilion's reputation has been affected by your failure."
@@ -37,7 +37,7 @@ DIALOGUES = {
         "en": "Hint: Visit the Butler and Lady Miaoyin, and carefully look for the murder weapons."
     },
 
-    # 结局 2: 真相大白，悲剧收场 (玩家完美指认林修)
+    # Ending 2: SUCCESS it is Lin
     "ending_success_appraisal_msg": {
         "zh": "\n恭喜你，物证认证据在，你成功锁定了凶手，天音阁的声望自此大大增加。",
         "en": "\nCongratulations! With irrefutable physical and testimonial evidence, you've successfully identified the culprit. Qingyin Pavilion's prestige has significantly increased!"
@@ -52,7 +52,7 @@ DIALOGUES = {
         "en": "Truth Revealed, Tragic End"
     },
 
-    # 结局 3: 恋爱脑断案，误判忠贞 (指认林修，澜衣顶罪，玩家情感偏向林修)
+    # Ending 3: Blinded by love — misjudging the loyal (pre con:emotion_lanyi < emotion_lin)
     "ending_lanyi_jumps_in_for_lin": {
         "zh": "\n就在你即将指认林修时，沈澜衣突然冲了出来，跪倒在地，声泪俱下：“不！特使！凶手是我！与林修无关！”",
         "en": "\nJust as you were about to accuse Lin Xiu, Shen Lanyi suddenly rushed out, falling to her knees and weeping: 'No! Envoy! I am the murderer! It has nothing to do with Lin Xiu!'"
@@ -70,7 +70,7 @@ DIALOGUES = {
         "en": "\n(Tip: Love makes you foolish; don't raise Lin Xiu's emotion points too high!)"
     },
 
-    # 结局 4: 青天大判官，公正无私 (指认林修，澜衣顶罪，玩家情感公正)
+    #  Ending 4: Just judgment — fairness above all (pre con: emotion_lanyi >= emotion_lin)
     "ending_lanyi_takes_blame_lin_emotion_low_lanyi_high_msg": {
         "zh": "沈澜衣为爱顶罪，但你头脑清醒，公正无私。你识破了她的苦心，决定深入调查，最终还林修清白。",
         "en": "Shen Lanyi takes the blame for love, but your mind is clear and impartial. You see through her earnest efforts and decide to investigate further, ultimately clearing Lin Xiu's name."
@@ -84,7 +84,7 @@ DIALOGUES = {
         "en": "\nAbbess Jinghui stepped forward, clasped her hands, and sighed: 'Amitabha, Miss Shen, repentance is salvation. Come with this humble nun to Yuquan Monastery for quiet cultivation.' She took Shen Lanyi, who silently complied, and the two departed."
     },
 
-    # 结局 5: 迷迷糊糊断案王 (指认林修但证据不全)
+    # Ending 5: Lucky guess — partial truth with insufficient evidence
     "ending_muddled_judgment_message": { 
         "zh": "\n你抓到了凶手，但却迷迷糊糊，也说不清自己是怎么抓到的。天将神兵，你断案如神，但却不知其所以然。",
         "en": "\nYou caught the culprit, but vaguely, unable to explain how. Divine intervention, your judgment was swift, but without understanding."
@@ -94,7 +94,7 @@ DIALOGUES = {
         "en": "Muddled Detective King"
     },
 
-    # 结局 6: 指鹿为马，颠倒黑白 (知道真凶却指认他人)
+    # Ending 6: Willful false accusation despite knowing the truth
     "ending_false_accusation_knew_truth_msg": {
         "zh": "\n你明明掌握了真凶的罪证，却指鹿为马，颠倒黑白。真凶逍遥法外，你的名声也因此蒙羞。",
         "en": "\nYou held the irrefutable evidence of the true culprit, yet you deliberately distorted the truth, accusing an innocent. The real murderer remains at large, and your reputation is now stained."
@@ -104,7 +104,7 @@ DIALOGUES = {
         "en": "Calling a Stag a Horse, Twisting Black into White"
     },
 
-    # 结局 7a: 错判红颜，无辜受累 (指认沈澜衣但林修未被客观发现)
+    # Ending 7a: Wrongly accused Lanyi — the innocent suffer
     "ending_false_accusation_lanyi_msg": {
         "zh": "你错误地指认了沈澜衣，她为此承受了不白之冤。真正的凶手逍遥法外。",
         "en": "You wrongly accused Shen Lanyi, and she bore the undeserved injustice. The true culprit remains at large."
@@ -114,7 +114,7 @@ DIALOGUES = {
         "en": "Misjudged Beauty, Innocent Suffers"
     },
 
-    # 结局 7b: 错指掌门，威信受损 (指认陈奇曼但林修未被客观发现)
+    # Ending 7b: Wrongly accused the sect leader — authority undermined
     "ending_false_accusation_chen_msg": {
         "zh": "你错误地指认了陈奇曼，他对此表示愤怒和不屑。真正的凶手逍遥法外。",
         "en": "You wrongly accused Chen Qiman, who responded with anger and disdain. The true culprit remains at large."
@@ -124,7 +124,7 @@ DIALOGUES = {
         "en": "Wrongly Accused Sect Leader, Prestige Damaged"
     },
 
-    # 结局 7c: 诬陷高僧，业障加身 (指认静慧师太但林修未被客观发现)
+    # Ending 7c: Slandered a high monk — karmic burden
     "ending_false_accusation_jing_msg": {
         "zh": "你错误地指认了静慧师太，她对此报以慈悲的叹息。真正的凶手逍遥法外。",
         "en": "You wrongly accused Abbess Jinghui, who met your accusation with a compassionate sigh. The true culprit remains at large."
@@ -134,7 +134,7 @@ DIALOGUES = {
         "en": "Slandered Monk, Karma Accumulates"
     },
 
-    # 结局 7d: 误会重重，仙子蒙冤 (指认妙音仙子但林修未被客观发现)
+    # Ending 7d: False suspicion — the fairy wronged
     "ending_suspect_miaoyin_line": {
         "zh": "你怀疑妙音仙子是凶手。\n 她虽然深爱庄主，但毒药在她手中变成了杀人的利器。 \n 但你没有确凿证据证明她故意杀人，只能作为怀疑者离开。",
         "en": "You suspect Lady Miaoyin is the murderer. \n Although she deeply loved the Master, the poison in her hands became a deadly weapon. \n But you lack conclusive evidence that she killed intentionally, leaving you to depart as a mere suspect."
@@ -145,7 +145,7 @@ DIALOGUES = {
         "en": "Heavy Misunderstanding, Lady Wronged"
     },
 
-    # 结局 7e: 忠诚之谜，未解之谜 (指认老管家但林修未被客观发现)
+    # Ending 7e: Loyal heart mistaken — the truth remains hidden
     "ending_suspect_butler_line1": {
         "zh": "你怀疑老管家行凶。\n 但他的行为更像是忠诚与无奈，缺少杀意。 \n 你留下疑问，江湖恩怨未了。",
         "en": "You suspect the old butler of the crime. \n However, his actions seem more like loyalty and helplessness, lacking murderous intent. \n You leave with unanswered questions, the martial world's grievances unresolved."
@@ -156,7 +156,7 @@ DIALOGUES = {
         "en": "Mystery of Loyalty, Unsolved Enigma"
     },
 
-    # 结局 8: 无果遗憾 (兜底结局)
+    # Ending 8: No resolution — a lingering regret
     "ending_unresolved_line": {
         "zh": "你未能准确找到真凶。\n 沈庄主的死因成了无人能解的江湖秘事。\n 你只能带着遗憾离开。",
         "en": "You failed to accurately find the true culprit. \n Master Shen's cause of death remains an unsolved mystery in the martial world. \n You can only leave with regret. "
@@ -169,7 +169,7 @@ DIALOGUES = {
 
 
 
-    # --- 结局相关文本 ---
+    # --- Ending title ---
     "ending_title": {
         "zh": "结局揭晓",
         "en": "Ending Revealed"
@@ -205,10 +205,7 @@ DIALOGUES = {
         "zh": "🎮 欢迎来到《天泉山庄疑案》",
         "en": "🎮 Welcome to 'The Mystery of Tianquan Manor'"
     },
-    #"player_intro": { # For main()
-    #    "zh": "你是清音阁特使执事慕容泓，应掌教穆长风之命，协助调查天泉山庄沈天正庄主之死。\n",
-    #    "en": "You are Murong Hong, special envoy of Qingyin Pavilion, \n entrusted by Master Mu Changfeng to aid in uncovering the truth behind \n the death of Tianquan Manor’s master, Shen Tianzheng. \n"
-    #},
+   
 
     "player_intro": { # Take player defined name
         "zh": "你是清音阁特使执事{player_name}，应掌教穆长风之命，协助调查天泉山庄沈天正庄主之死。",
@@ -221,35 +218,36 @@ DIALOGUES = {
         "zh": "请选择你要调查的角色：",
         "en": "Please choose the character you wish to investigate:"
     },
-    "character_lanyi": { # For main() menu option
+    #--- For main() menu option---
+    "character_lanyi": { 
         "zh": "沈澜衣",
         "en": "Shen Lanyi"
     },
-    "character_chen": { # For main() menu option
+    "character_chen": { 
         "zh": "陈奇曼",
         "en": "Chen Qiman"
     },
-    "character_lin": { # For main() menu option
+    "character_lin": { 
         "zh": "林修",
         "en": "Lin Xiu"
     },
-    "character_miaoyin": { # For main() menu option
+    "character_miaoyin": { 
         "zh": "妙音仙子",
         "en": "Lady Miaoyin"
     },
-    "character_butler": { # For main() menu option
+    "character_butler": { 
         "zh": "老管家",
         "en": "The Old Butler"
     },
-    "character_jing": { # For main() menu option
+    "character_jing": { 
         "zh": "静慧师太",
         "en": "Abbess Jinghui"
     },
-    "menu_view_log_clues": { # For main() menu option
+    "menu_view_log_clues": { 
         "zh": "查看调查日志",
         "en": "View Investigation Log"
     },
-    "menu_end_investigation": { # For main() menu option
+    "menu_end_investigation": { 
         "zh": "结束调查，进行推理\n>>>>>>>>",
         "en": "End Investigation, Begin Deduction\n>>>>>>>>"
     },
@@ -1311,20 +1309,16 @@ MULTILINE_DIALOGUES = {
 
 
 
-# 工具函数
-
-"""
-def say(key, lang="en"):
-    #打印对应语言的对话内容
-    #:param key: 对话关键词
-    #:param lang: 'zh' 或 'en'  
-    if key in dialogue_lanyi and lang in dialogue_lanyi[key]:
-        print("\n" + dialogue_lanyi[key][lang])
-    else:
-        print("[对话缺失 / Missing dialogue]")
-"""
-
 # --- Tool Functions --- #
+
+
+def safe_input(prompt, default="1"):
+    #code in place debug use only
+    try:
+        return input(prompt)
+    except EOFError:
+        return default
+
 
 def say(key, lang="en"):
     #print()
