@@ -1,4 +1,4 @@
-from dialogue_data import say, DIALOGUES
+from dialogue_data import safe_input, say, DIALOGUES
 
 def view_log_and_clues(events_log, clues, variables, lang="en"):
     """
@@ -9,29 +9,28 @@ def view_log_and_clues(events_log, clues, variables, lang="en"):
     :param lang: "zh" or "en" - The chosen language
     """
 
-    #print("\n=== 调查日志 ===")
+   
     print(f"\n======== {say('log_title', lang)} ========")
 
     if not events_log and not clues:
-        #print("你还没有收集到任何线索或调查记录。")
+       
         print(say("log_no_info", lang))
         return
 
     if events_log:
-        #print("\n调查进展记录：")
+        
         print(f"\n{say('log_progress_title', lang)}：")
         for i, event in enumerate(events_log, 1):
             print(f"  {i}. {event}")
 
     if clues:
-        #print("\n已收集线索：")
+        
         print(f"\n{say('log_clues_title', lang)}：")
         for i, clue in enumerate(clues, 1):
             print(f"  - {clue}")
 
 
-    # 根据变量状态展示简要推测
-    #print("\n当前推测状态：")
+    
     print(f"\n{say('log_suspicion_status_title', lang)}")
     suspects = []
 
@@ -50,24 +49,6 @@ def view_log_and_clues(events_log, clues, variables, lang="en"):
         if variables.get(key, 0) > 0:
             suspects.append(display_name)
 
-
-
-    #if variables.get('suspect_butler', 0) > 0:
-    #    suspects.append("老管家")
-    #if variables.get('suspect_miaoyin', 0) > 0:
-    #    suspects.append("妙音仙子")
-    #if variables.get('suspect_lin', 0) > 0:
-    #    suspects.append("林修")
-    #if variables.get('suspect_chen', 0) > 0:
-    #    suspects.append("陈奇曼")
-    #if variables.get('suspect_lanyi', 0) > 0:
-    #    suspects.append("沈澜衣")
-    
-
-    #if suspects:
-    #    print(f"  你怀疑：{', '.join(suspects)}")
-    #else:
-    #    print("  你暂时没有明确怀疑的对象。")
     
     if suspects:
         # Join suspects with appropriate separator based on language
@@ -78,16 +59,10 @@ def view_log_and_clues(events_log, clues, variables, lang="en"):
     else:
         print(say("log_suspect_no_target", lang))
 
-    # 展示玩家对关键角色的情感值    
-    #print("\n角色情感倾向：")
+  
     print(f"\n{say('log_emotion_title', lang)}：")
 
-    #for key in ['emotion_butler', 'emotion_miaoyin','emotion_lin','emotion_jing', 'emotion_lanyi', 'emotion_chen']:
-    #    val = variables.get(key, 0)
-    #    if val != 0:
-    #        print(f"  对 {key.replace('emotion_', '')} 的情感值：{val}")
-    # Mapping emotion keys to character names for display
-    
+
     emotion_map = {
         'emotion_butler': say("character_butler", lang),
         'emotion_miaoyin': say("character_miaoyin", lang),
