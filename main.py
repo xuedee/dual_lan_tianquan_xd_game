@@ -1,9 +1,9 @@
-from chen import interact_with_chen
-from lanyi import interact_with_lanyi
-from lin import interact_with_lin
-from miaoyin import interact_with_miaoyin
-from butler import interact_with_butler
-from jing import interact_with_jing
+from characters.chen import interact_with_chen
+from characters.lanyi import interact_with_lanyi
+from characters.lin import interact_with_lin
+from characters.miaoyin import interact_with_miaoyin
+from characters.butler import interact_with_butler
+from characters.jing import interact_with_jing
 from endings import make_final_judgment
 from clues_log import view_log_and_clues
 from dialogue_data import safe_input, say, DIALOGUES 
