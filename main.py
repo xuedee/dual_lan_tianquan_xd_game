@@ -6,6 +6,8 @@ from characters.butler import interact_with_butler
 from characters.jing import interact_with_jing
 from endings import make_final_judgment
 from clues_log import view_log_and_clues
+from dialogue_data import say, DIALOGUES 
+# Import say and DIALOGUES for main menu texts
 
 """
 your_game_project/
@@ -26,6 +28,65 @@ your_game_project/
 
 """
 
+def accuse_culprit_menu(lang):
+    """
+    提示玩家选择最终指认的凶手。
+    返回被指认角色的键名 (例如 'lin', 'lanyi') 
+    或 None (如果玩家选择返回)。
+    """
+    while True:
+        print("\n" + say("accuse_prompt", lang))
+        print("1. " + say("character_lanyi", lang))
+        print("2. " + say("character_chen", lang))
+        print("3. " + say("character_lin", lang))
+        print("4. " + say("character_miaoyin", lang))
+        print("5. " + say("character_butler", lang))
+        print("6. " + say("character_jing", lang))
+        print("0. " + say("accuse_cancel", lang)) # 选项：返回主菜单
+
+        accuse_choice_num = input(say("input_prompt", lang))
+
+        if accuse_choice_num == "1": return 'lanyi'
+        elif accuse_choice_num == "2": return 'chen'
+        elif accuse_choice_num == "3": return 'lin'
+        elif accuse_choice_num == "4": return 'miaoyin'
+        elif accuse_choice_num == "5": return 'butler'
+        elif accuse_choice_num == "6": return 'jing'
+        elif accuse_choice_num == "0": return None # 玩家选择返回主菜单
+        else:
+            print(say("invalid_input", lang))
+
+
+
+
+def choose_language():
+    print("Choose your language / 请选择语言：")
+    print("1. English")
+    print("2. 中文")
+    choice = input("Enter your choice / 输入你的选择（1或2）：")
+    return "zh" if choice == "2" else "en"
+
+def get_player_name(lang):
+    """
+    Asks the player for their name.
+    If the input is empty (space or just enter), uses a default name.
+    """
+    default_name_zh = "慕容泓" # Default Chinese name
+    default_name_en = "Murong Hong" # Default English name
+
+    name_prompt_key = "player_name_prompt"
+    
+    # Get the appropriate prompt for the chosen language
+    prompt = say(name_prompt_key, lang)
+    
+    player_name = input(prompt).strip() 
+    # .strip() removes leading/trailing whitespace including spaces
+
+    if not player_name: 
+        # If name is empty after stripping (e.g., just Enter or spaces)
+        return default_name_zh if lang == "zh" else default_name_en
+    else:
+        return player_name
 
 def main():
     clues = set()
@@ -39,6 +100,7 @@ def main():
         'emotion_lin': 0,
         'suspect_lin': 0,
         'truth_window_lin': False,
+        'lin_confessed_poison_triggered': False,
         'love_points': 0,
         'emotion_lanyi': 0,
         'suspect_lanyi': 0,
@@ -50,42 +112,76 @@ def main():
         'suspect_jing': 0,
         'truth_window_jing': False
     }
+    # Language selection
+    lang = choose_language()
+    # Pass language to initial interaction
+    
+    #default interact_with_lanyi, debug use only
+    #interact_with_lanyi(events_log, clues, variables, lang)
 
-    print("🎮 欢迎来到《天泉山庄疑案》")
-    print("你是清音阁特使执事澹台洛林，应掌教穆长风之命，协助调查天泉山庄沈天正庄主之死。")
+    # Get player name right after language selection
+    player_actual_name = get_player_name(lang)
+
+    print("\n"+say("game_welcome",lang))
+    #print(say("player_intro",lang))
+    #insert user/player defined name
+    print(say("player_intro", lang).format(player_name=player_actual_name))
+
+
+
+    #print("🎮 欢迎来到《天泉山庄疑案》")
+    #print("你是清音阁特使执事somebody，应掌教穆长风之命，协助调查天泉山庄沈天正庄主之死。")
 
     while True:
-        print("\n请选择你要调查的角色：")
-        print("1. 沈澜衣")
-        print("2. 陈奇曼")
-        print("3. 林修")
-        print("4. 妙音仙子")
-        print("5. 老管家")
-        print("6. 静慧师太")
-        print("7. 查看调查日志")
-        print("0. 结束调查，进行推理")
+        #print("\n请选择你要调查的角色：")
+        #print("1. 沈澜衣")
+        #print("2. 陈奇曼")
+        #print("3. 林修")
+        #print("4. 妙音仙子")
+        #print("5. 老管家")
+        #print("6. 静慧师太")
+        #print("7. 查看调查日志")
+        #print("0. 结束调查，进行推理")
+        
+        # Main menu prompt
+        print("\n" + say("main_menu_prompt", lang)) 
+        print("1. " + say("character_lanyi", lang))
+        print("2. " + say("character_chen", lang))
+        print("3. " + say("character_lin", lang))
+        print("4. " + say("character_miaoyin", lang))
+        print("5. " + say("character_butler", lang))
+        print("6. " + say("character_jing", lang))
+        print("7. " + say("menu_view_log_clues", lang))
+        print("0. " + say("menu_end_investigation", lang))
 
-        choice = input("你的选择是：")
+        #choice = input("你的选择是：")
+        choice = input(say("input_prompt",lang))
 
         if choice == "1":
-            interact_with_lanyi(events_log, clues, variables)
+            interact_with_lanyi(events_log, clues, variables, lang)
         elif choice == "2":
-            interact_with_chen(events_log, clues, variables)
+            interact_with_chen(events_log, clues, variables, lang)
         elif choice == "3":
-            interact_with_lin(events_log, clues, variables)
+            interact_with_lin(events_log, clues, variables, lang)
         elif choice == "4":
-            interact_with_miaoyin(events_log, clues, variables)
+            interact_with_miaoyin(events_log, clues, variables, lang)
         elif choice == "5":
-            interact_with_butler(events_log, clues, variables)
+            interact_with_butler(events_log, clues, variables, lang)
         elif choice == "6":
-            interact_with_jing(events_log, clues, variables)
+            interact_with_jing(events_log, clues, variables, lang)
         elif choice == "7":
-            view_log_and_clues(events_log, clues, variables)
+            view_log_and_clues(events_log, clues, variables, lang)
         elif choice == "0":
-            make_final_judgment(clues, variables, events_log)
-            break
+            #凶手指认模块
+            accused_char_key = accuse_culprit_menu(lang)
+            if accused_char_key is not None:
+                # 玩家要是没有快速退出指认模块
+                # （有些玩家玩一半跑来看看，没想好就可以退出待会再来）
+                make_final_judgment(clues, variables, events_log, lang, accused_char_key)
+                break
         else:
-            print("无效输入，请重新选择。")
+            #print("无效输入，请重新选择。")
+            print(say("invalid_input",lang))
 
 # 测试流程
 if __name__ == "__main__":

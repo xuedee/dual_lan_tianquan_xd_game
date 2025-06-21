@@ -1,6 +1,7 @@
-#from dialogue_data import say, say_multiline
-#def interact_with_lanyi(events_log, clues, variables, lang='en'):
-def interact_with_lanyi(events_log, clues, variables):
+import time
+from dialogue_data import say, say_multiline,split_clues
+def interact_with_lanyi(events_log, clues, variables, lang='en'):
+
     """
     与沈澜衣的互动分支
     :param events_log: 玩家行为日志
@@ -9,20 +10,92 @@ def interact_with_lanyi(events_log, clues, variables):
     :param lang: "zh" or "en"
     """
 
-    print("\n你来到湖心亭，沈澜衣倚栏独立，湖面波光粼粼。她神色凄苦，一转身望见你，向你微微行礼：“阁下便是清音阁特使？有劳了。”")
+    #print("\n你来到湖心亭，沈澜衣倚栏独立，湖面波光粼粼。她神色凄苦，一转身望见你，向你微微行礼：“阁下便是清音阁特使？有劳了。”")
 
-    print("沈澜衣 \n 身份：沈庄主之女 \n 年龄：22岁 \n 人设关键词：孝顺、敏感、敢爱敢恨 \n 背景信息：自幼聪慧，为人冷静，颇得庄主宠爱。最近被逼婚，却早已与林修私定终身。\n 公开信息：曾与父亲激烈争执，反对联姻，之后独居偏院。")
+    #print("沈澜衣 \n 身份：沈庄主之女 \n 年龄：22岁 \n 人设关键词：孝顺、敏感、敢爱敢恨 \n 背景信息：自幼聪慧，为人冷静，颇得庄主宠爱。最近被逼婚，却早已与林修私定终身。\n 公开信息：曾与父亲激烈争执，反对联姻，之后独居偏院。")
+
+    #print()
+    print(say("lanyi_intro_scene", lang))
+    #print()
+    print(say("lanyi_profile", lang))
+    #print()
 
     while True:
-        print("\n你想要问她什么？")
-        print("1. 问她最近父亲有何异常")
-        print("2. 询问她与林修的感情")
-        print("3. 询问她知不知道毒药是哪里来的")
-        print("4. 观察她的衣袖和随身物品")
-        print("5. 安慰她，表达理解")
-        print("6. 离开沈澜衣")
+        #print("\n你想要问她什么？")
+        print(say("chat_start_prompt", lang))
+        
+        
+        #print("1. 问她最近父亲有何异常")
+        #print("2. 询问她与林修的感情")
+        #print("3. 询问她知不知道毒药是哪里来的")
+        #print("4. 观察她的衣袖和随身物品")
+        #print("5. 安慰她，表达理解")
+        #print("6. 离开沈澜衣")
 
-        choice = input("请选择（输入数字）：")
+        print("1. " + say("lanyi_choice_1", lang))
+        print("2. " + say("lanyi_choice_2", lang))
+        print("3. " + say("lanyi_choice_3", lang))
+        print("4. " + say("lanyi_choice_4", lang))
+        print("5. " + say("lanyi_choice_5", lang))
+        print("6. " + say("lanyi_choice_6", lang))
+
+        
+
+        #choice = input("请选择（输入数字）：")
+        choice=input(say("input_prompt",lang))
+        #print()
+        if choice == "1":
+            print(say("ask_lanyi_father", lang))
+            clues.add(say("clue_fake_death_truth", lang)) 
+            events_log.append(say("log_ask_lanyi_fake_death", lang)) 
+
+        elif choice == "2":
+            print(say("ask_lanyi_love", lang))
+            print(say("lanyi_love_details", lang))
+            
+            #variables['love_points'] = variables.get('love_points', 0) + 1
+            variables['emotion_lanyi'] = variables.get('emotion_lanyi', 0) + 1
+            events_log.append(say("log_talk_lanyi_love", lang)) 
+
+            if variables.get('truth_window_lanyi', False) and variables.get('love_points', 0) >= 3:
+                say_multiline("lanyi_confess_poison_truth", lang)
+            else:
+                say_multiline("lanyi_love_story_past", lang) 
+                variables['love_points'] = variables.get('love_points', 0) + 1 
+
+        elif choice == "3":
+            print(say("ask_lanyi_poison", lang))
+            print(say("lanyi_suspicion", lang)) #"你感觉她隐瞒了什么。"
+            variables['suspect_lanyi'] = variables.get('suspect_lanyi', 0) + 1
+            events_log.append(say("log_question_lanyi_poison", lang))
+
+        elif choice == "4":
+            print(say("lanyi_sleeve_obs_result", lang)) 
+            clues.add(say("clue_green_trace_1", lang)) 
+            events_log.append(say("log_observe_lanyi_sleeve", lang)) 
+            variables['suspect_lanyi'] = variables.get('suspect_lanyi', 0) + 1
+        
+        elif choice == "5":
+            print(say("comfort_lanyi", lang))
+            variables['emotion_lanyi'] = variables.get('emotion_lanyi', 0) + 1 
+            events_log.append(say("log_comfort_lanyi", lang))
+            variables['truth_window_lanyi'] = True
+            
+            # debug line below
+            # variables['love_points'] = variables.get('love_points', 0) + 1 
+
+        elif choice == "6":
+            print(say("leave_lanyi", lang))
+            break
+
+        else:
+            print(say("invalid_input", lang))
+
+
+
+
+        """
+        
 
         if choice == "1":
             print("\n她点点头：“父亲曾亲口对我说，他不愿再纠缠于江湖旧怨，想借妙音姑姑之手脱身。”")
@@ -123,3 +196,4 @@ def interact_with_lanyi(events_log, clues, variables):
 
         else:
             print("无效输入，请重新输入。")
+        """

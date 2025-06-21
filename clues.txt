@@ -1,0 +1,78 @@
+# Lanyi related clues (text added to clues set)
+    "clue_fake_death_truth": {
+        "zh": "假死药真相",
+        "en": "Fake Death Potion Truth"
+    },
+    "clue_green_trace_1": {
+        "zh": "绿粉痕迹1",
+        "en": "Green Powder Trace 1"
+    },
+
+# Butler related clues
+    "clue_butler_silver_notes": {
+        "zh": "管家获得银票补偿",
+        "en": "Butler received compensation"
+    },
+    "clue_will_burned": {
+        "zh": "遗书已被焚毁",
+        "en": "Will has been burned"
+    },
+    "clue_poison_bottle_1": {
+        "zh": "毒药瓶1",
+        "en": "Poison Bottle 1"
+    },
+    "clue_altar_spirit_tablet": {
+        "zh": "供桌灵位",
+        "en": "Altar Spirit Tablet"
+    },
+
+# Chen related clues
+    "clue_no_victory_in_fight": {
+        "zh": "比掌未决胜负",
+        "en": "Palm-strike ended without clear victor"
+    },
+    "clue_huashan_healing_balm": {
+        "zh": "华山派金疮药",
+        "en": "Huashan Sect Healing Balm"
+    },
+    "clue_chen_antidote_pill": {
+        "zh": "陈奇曼解毒丸",
+        "en": "Chen Qiman's Antidote Pill"
+    },
+
+
+    # Jing related clues
+    "clue_jing_powder_trace": {
+        "zh": "药粉痕迹",
+        "en": "Medicine Powder Trace"
+    },
+    
+    # Miaoyin related clues
+    "clue_promise_of_reclusion": {
+        "zh": "归隐约定",
+        "en": "Promise of Reclusion"
+    },
+    "clue_someone_else_poisoned": {
+        "zh": "有人投毒",
+        "en": "Someone else poisoned"
+    },
+    "clue_former_master_disciple": {
+        "zh": "曾为师徒",
+        "en": "Once Master and Disciple"
+    },
+    "clue_multiple_poisons": {
+        "zh": "沈身中多种毒药",
+        "en": "Shen afflicted by multiple poisons"
+    },
+    "clue_poison_source_identified": {
+        "zh": "毒药源锁定",
+        "en": "Poison source identified"
+    },
+    "clue_poison_bottleX2": {
+        "zh": "获得毒药瓶x2",
+        "en": "Gained Two Poison Bottles"
+    },
+     "clue_lin_access_miaoyin_medicine": {
+        "zh": "林修接触妙音仙子药物",
+        "en": "Lin Xiu accessed Lady Miaoyin's medicine"
+    },
