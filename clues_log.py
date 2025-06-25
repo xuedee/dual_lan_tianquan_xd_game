@@ -105,7 +105,21 @@ def view_log_and_clues(events_log, clues, variables, lang="en"):
             found_emotions = True
     
     if not found_emotions:
-        print(say("log_emotion_no_records", lang)) # New message if no emotions recorded
+        print(say("log_emotion_no_records", lang)) # Default message if no emotions recorded
+    
+    ###===display the love_points for player
+    #num_lov=variables.get('love_points',0)
+    #if lang =="zh":
+    #    print(f"\n当前恋爱脑指数：{num_lov}")
+    #else:
+    #    print(f"\nCurrent Love-Brain Interference Level: {num_lov}")
+
+    # 将“当前恋爱脑指数”也放入 dialogue_data.py
+    shen_lov=variables.get('shen_love_points',0)
+    lin_lov=variables.get('lin_love_points',0)
+    # 调用 dialogue_data.py 中新定义的恋爱脑key
+    print(f"\n{say('lanyi_love_brain_level', lang)} {shen_lov}")
+    print(f"{say('lin_love_brain_level', lang)} {lin_lov}")
 
 
 

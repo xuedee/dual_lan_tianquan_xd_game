@@ -47,7 +47,8 @@ def make_final_judgment(clues, variables, events_log,lang="en", accused_char_key
     )
 
     # 林修与沈澜衣的感情及玩家对他们的情感倾向
-    love_points_lin_lanyi = variables.get('love_points', 0)
+    shen_love_points = variables.get('shen_love_points', 0)
+    lin_love_points = variables.get('lin_love_points', 0)
     emotion_lin = variables.get('emotion_lin', 0)
     emotion_lanyi = variables.get('emotion_lanyi', 0)
 
@@ -57,7 +58,7 @@ def make_final_judgment(clues, variables, events_log,lang="en", accused_char_key
     # 情况 A: 玩家指认林修
     if accused_char_key == 'lin':
         # 子分支 1: 沈澜衣为爱顶罪（高优先级触发，只有在指认林修时才可能发生）
-        if love_points_lin_lanyi >= 4:
+        if shen_love_points > lin_love_points:
             print(say("ending_lanyi_jumps_in_for_lin", lang))
             if emotion_lin > emotion_lanyi:
                 # 结局 3: 恋爱脑断案，误判忠贞
@@ -72,7 +73,7 @@ def make_final_judgment(clues, variables, events_log,lang="en", accused_char_key
         # 子分支 2: 玩家直接指认林修 (沈澜衣未顶罪)
         elif player_objectively_found_lin_guilty:
             # 结局 2: 真相大白，悲剧收场 (完美结局)
-            print(say("ending_true_killer_found_line", lang)) # 注意：这里使用合并后的单行字符串
+            print(say("ending_true_killer_found_line", lang)) 
             ending_key = "ending_true_killer_name"
             print(say("ending_success_appraisal_msg", lang))
         else:

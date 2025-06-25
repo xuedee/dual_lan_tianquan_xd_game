@@ -6,7 +6,7 @@ def interact_with_lanyi(events_log, clues, variables, lang='en'):
     与沈澜衣的互动分支
     :param events_log: 玩家行为日志
     :param clues: 玩家获得的线索集合（set）
-    :param variables: 其他状态变量，如 {'emotion_lanyi': 0, 'suspect_lanyi': 0, 'truth_window_lanyi', 'love_points': 0}
+    :param variables: 其他状态变量，如 {'emotion_lanyi': 0, 'suspect_lanyi': 0, 'truth_window_lanyi', 'shen_love_points': 0}
     :param lang: "zh" or "en"
     """
 
@@ -57,11 +57,11 @@ def interact_with_lanyi(events_log, clues, variables, lang='en'):
             variables['emotion_lanyi'] = variables.get('emotion_lanyi', 0) + 1
             events_log.append(say("log_talk_lanyi_love", lang)) 
 
-            if variables.get('truth_window_lanyi', False) and variables.get('love_points', 0) >= 3:
+            if variables.get('truth_window_lanyi', False) and variables.get('shen_love_points', 0) >= 3:
                 say_multiline("lanyi_confess_poison_truth", lang)
             else:
                 say_multiline("lanyi_love_story_past", lang) 
-                variables['love_points'] = variables.get('love_points', 0) + 1 
+                variables['shen_love_points'] = variables.get('shen_love_points', 0) + 1 
 
         elif choice == "3":
             print(say("ask_lanyi_poison", lang))

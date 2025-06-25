@@ -3,6 +3,15 @@
 import re
 
 DIALOGUES = {
+    # --- Log and Clues Display (添加恋爱脑显示) ---
+    "lanyi_love_brain_level": {
+        "zh": "沈澜衣当前恋爱脑指数：",
+        "en": "Shen Lanyi Current Love-Brain Interference Level:"
+    },
+    "lin_love_brain_level": {
+        "zh": "林修当前恋爱脑指数：",
+        "en": "Lin Xiu Current Love-Brain Interference Level:"
+    },
     # ---最终指认菜单---
     "accuse_prompt": {
         "zh": "你最终指认的凶手是谁？",
@@ -72,8 +81,8 @@ DIALOGUES = {
 
     # 结局 4: 青天大判官，公正无私 (指认林修，澜衣顶罪，玩家情感公正)
     "ending_lanyi_takes_blame_lin_emotion_low_lanyi_high_msg": {
-        "zh": "沈澜衣为爱顶罪，但你头脑清醒，公正无私。你识破了她的苦心，决定深入调查，最终还林修清白。",
-        "en": "Shen Lanyi takes the blame for love, but your mind is clear and impartial. You see through her earnest efforts and decide to investigate further, ultimately clearing Lin Xiu's name."
+        "zh": "沈澜衣为爱顶罪，但你头脑清醒，公正无私。你识破了她的苦心，决定深入调查，最终缉拿真凶林修归案。",
+        "en": "Shen Lanyi took the blame out of love, but you remained clear-headed and impartial. Seeing through her intentions, you decided to investigate further and ultimately brought the real culprit, Lin Xiu, to justice."
     },
     "ending_lanyi_takes_blame_lin_emotion_low_lanyi_high_name": {
         "zh": "青天大判官，公正无私",

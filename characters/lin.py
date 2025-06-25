@@ -5,7 +5,7 @@ def interact_with_lin(events_log, clues, variables, lang="en"):
     与林修的多选互动模块
     :param events_log: 玩家行为日志
     :param clues: 玩家获得的线索集合
-    :param variables: 状态变量 dict，如 {'emotion_lin': 0, 'suspect_lin': 0 'truth_window_lin', 'love_points': 0}
+    :param variables: 状态变量 dict，如 {'emotion_lin': 0, 'suspect_lin': 0 'truth_window_lin', 'lin_love_points': 0}
     """
     #print("林修 \n 身份：庄中孤儿，沈庄主抚养长大 \n 年龄：26岁 \n 人设关键词：隐忍、忠诚、有情有义 \n 背景信息：儿时被庄主带回抚养。似乎与沈澜衣关系匪浅。\n 公开信息：勤恳做事，是庄主最信任的年轻人之一。")
     #print("\n你来到后院，林修正在打水。他神色沉静，见你来，轻声道：“清音阁特使？”")
@@ -54,7 +54,7 @@ def interact_with_lin(events_log, clues, variables, lang="en"):
             print(say("lin_reason_stay",lang))
             
             variables['emotion_lin'] = variables.get('emotion_lin', 0) + 1
-            variables['love_points'] = variables.get('love_points', 0) + 1
+            variables['lin_love_points'] = variables.get('lin_love_points', 0) + 1
             #events_log.append("追问林修未离开原因")
             events_log.append(say("log_reason_lin_stay", lang)) 
             # add log key for "log_reason_lin_stay"
@@ -63,7 +63,7 @@ def interact_with_lin(events_log, clues, variables, lang="en"):
             if not variables.get('truth_window_lin', False):
             #when "truth_window_lin" is false, or window doesn't exist, process logic below
                 say_multiline("lin_memory_early", lang)
-                variables['love_points'] = variables.get('love_points', 0) + 1
+                variables['lin_love_points'] = variables.get('lin_love_points', 0) + 1
                 variables['emotion_lin'] = variables.get('emotion_lin', 0) + 1
             else:
                 # only apply when "truth_window_lin" is opened(True)
@@ -74,10 +74,11 @@ def interact_with_lin(events_log, clues, variables, lang="en"):
                         incense_clue_found = True
                         break
 
-                if variables.get('emotion_lin', 0) >= 5 and variables.get('love_points', 0) >= 4 and incense_clue_found:
+                #if variables.get('emotion_lin', 0) >= 5 and variables.get('love_points', 0) >= 4 and incense_clue_found:
+                if variables.get('emotion_lin', 0) >= 3 and variables.get('lin_love_points', 0) >= variables.get('shen_love_points', 0) and incense_clue_found:
                     # only if emotion_lin & love_points meet the requirements, tell truth
                     say_multiline("lin_confess_poison", lang)
-                    variables['lin_confessed_poison_triggered'] = True #*****！！！*****
+                    variables['lin_confessed_poison_triggered'] = True #*****real ending！！！*****
                     clues.add(say("clue_lin_access_miaoyin_medicine", lang))
                     clues.add(say("clue_lin_full_confession_seen", lang))
                 else:
